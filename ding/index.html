@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<!-- we import arjs version without NFT but with marker + location based support -->
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+<script>
+    AFRAME.registerComponent('soundhandler', {
+        init: function () {
+            this.soundEl = document.querySelector('[sound]');
+            this.marker = document.querySelector('a-marker');
+            this.visible = false;
+        },
+        tick: function () {
+            if (this.marker.object3D.visible && !this.visible) {
+                console.log("ding")
+                this.soundEl.components.sound.stopSound(); // stop if playing
+                this.soundEl.components.sound.playSound(); // play
+                this.visible = true; // make sure it plays only once per visible
+            } else if (!this.marker.object3D.visible) {
+                this.soundEl.components.sound.stopSound();
+                this.visible = false;
+            }
+        }
+    });
+</script>
+
+<style>
+    #info {
+        position: fixed;
+        top: 5%;
+        z-index: 1000;
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
+
+<body style="margin : 0px; overflow: hidden">
+    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; patternRatio: 0.90'
+             vr-mode-ui="enabled: false"
+             gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.4.3/;">
+
+        <a-assets>
+
+            <a-asset-item id="Templo" src="draco/Templo.glb"></a-asset-item>
+            <a-asset-item id="Ramen" src="draco/Ramen.glb"></a-asset-item>
+
+            <a-asset-item id="ARCO" src="draco/ARCO.glb"></a-asset-item>
+
+            <a-asset-item id="Ermita" src="draco/Ermita.glb"></a-asset-item>
+            <a-asset-item id="Gato" src="draco/Gato.glb"></a-asset-item>
+
+            <audio id="sound" src="sound/compressed.mp3" preload="auto"></audio>
+
+        </a-assets>
+
+        <a-marker preset="custom" type='pattern' url="211116portal.patt" soundhandler>
+          <a-torus-knot position="0 0 0" color="#B84A39" arc="180" p="2" q="3" radius="0.5" radius-tubular="0.1" material="wireframe: true; transparent: true"
+                        animation="property: material.opacity; from: 0.0; to: 0.1 loop: true; dur: 10000; easing: linear"
+                        animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 50000; easing: linear"
+                        animation__color="property: material.color; from: #B84A39; to: #0000cd; loop: false; dur: 84500; easing: linear"
+                        animation__color2="property: material.color; from: #0000cd; to: #f8f8ff; delay: 84500; loop: true; dur: 84500; easing: linear"
+                        animation__color3="property: material.color; from: #f8f8ff; to: #B84A39; delay: 169000; loop: true; dur: 85000; easing: linear">
+                      </a-torus-knot>
+
+          <!--China-->
+
+          <!--a-entity
+            gltf-model="#Japones"
+            position="0 0 0"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2 2 2; delay: 1000; loop: false; dur: 20000; easing: linear"
+            animation__2="property: rotation; from: -90 0 0; to: -90 0 0; loop: true; dur: 7000; easing: linear"
+            animation__3="property: scale; from: 2 2 2; to: 0 0 0; delay: 21000; loop: false; dur: 20000; easing: linear"
+          ><!/a-entity-->
+
+        <a-sphere position="0 0 0" radius="5" material="opacity: 0.0; transparent: true"
+                  animation="property: rotation; from: 0 0 0; to: 360 360 360; loop: false; dur: 254000; easing: linear">
+          <a-entity
+            gltf-model="#Templo"
+            position="-0.1 0 -0.1"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2.5 2.5 2.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 20000; easing: linear"
+            animation__3="property: position; from: 0 0 0; to: -0.5 0 -0.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__4="property: scale; from: 2.5 2.5 2.5; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear"
+          ></a-entity>
+        </a-sphere>
+
+
+          <!--japan-->
+        <a-sphere position="-0.3 0 0" radius="5" material="opacity: 0.0; transparent: true"
+                  animation="property: rotation; from: 0 0 0; to: -360 360 360; loop: false; dur: 254000; easing: linear"
+                  animation__2="property: position; from: -0.3 0 0; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear">
+          <a-entity
+            gltf-model="#ARCO"
+            position="0.1 0 -0.1"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2.5 2.5 2.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 20000; easing: linear"
+            animation__3="property: position; from: 0 0 0; to: 0.5 0 -0.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__4="property: scale; from: 2.5 2.5 2.5; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear"
+          ></a-entity>
+
+          <a-entity
+            gltf-model="#Ramen"
+            position="0.1 0 0.1"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2.5 2.5 2.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 20000; easing: linear"
+            animation__3="property: position; from: 0 0 0; to: -0.5 0 0.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__4="property: scale; from: 2.5 2.5 2.5; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear"
+          ></a-entity>
+
+          <!--a-entity
+            gltf-model="#Tren"
+            position="-0.1 0 0.1"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 0.5 0.5 0.5; delay: 1000; loop: true; dur: 20000; easing: linear"
+            animation__2="property: rotation; from: -90 0 0; to: -90 0 0; loop: true; dur: 7000; easing: linear"
+          ></a-entity>
+
+          <a-entity
+            gltf-model="#Origami"
+            position="-1 1 0"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2 2 2; delay: 1000; loop: false; dur: 20000; easing: linear"
+            animation__2="property: rotation; from: -90 0 0; to: -90 0 0; loop: true; dur: 7000; easing: linear"
+            animation__3="property: scale; from: 2 2 2; to: 0 0 0; delay: 21000; loop: false; dur: 20000; easing: linear"
+          ><!/a-entity-->
+          </a-sphere>
+
+          <!--colombia-->
+        <a-sphere position="0.3 0 0" radius="5" material="opacity: 0.0; transparent: true"
+                  animation="property: rotation; from: 0 0 0; to: 360 -360 360; loop: false; dur: 254000; easing: linear"
+                  animation__2="property: position; from: 0.3 0 0; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear">
+          <a-entity
+            gltf-model="#Ermita"
+            position="0.1 0 0.2"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2.5 2.5 2.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 20000; easing: linear"
+            animation__3="property: position; from: 0 0 0; to: 0.5 0 0.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__4="property: scale; from: 2.5 2.5 2.5; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear"
+          ></a-entity>
+
+          <a-entity
+            gltf-model="#Gato"
+            position="0.1 0 -0.2"
+            scale = "0 0 0"
+            rotation="90 180 0"
+            shadow="receive: true"
+            animation="property: scale; from: 0 0 0; to: 2.5 2.5 2.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__2="property: rotation; from: 0 0 0; to: 360 360 360; loop: true; dur: 20000; easing: linear"
+            animation__3="property: position; from: 0 0 0; to: 0.5 0 -0.5; delay: 1000; loop: false; dur: 254000; easing: linear"
+            animation__4="property: scale; from: 2.5 2.5 2.5; to: 0 0 0; delay: 255000; loop: false; dur: 2000; easing: linear"
+          ></a-entity>
+        </a-sphere>
+
+        </a-marker>
+
+        <a-entity sound="src: #sound" autoplay="false"></a-entity>
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
+
+</html>
